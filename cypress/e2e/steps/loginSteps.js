@@ -10,9 +10,11 @@ When("eu digitar o usuário {string}", (user) =>{
     cy.get('[data-test="username"]').type(user)
 })
 
-And("a senha {string}", (pass) =>{
+And("a senha {string} e confirmar", (pass) =>{
     cy.get('[data-test="password"]').type(pass)
+    cy.get('[data-test="login-button"]').click()
 })
 
-// E confirmar login
-// Então deve ser exibido o título "Products"
+Then("deve ser exibido o título {string}", (titulo) =>{
+    cy.get('[data-test="title"]').should('have.text', titulo)
+})
