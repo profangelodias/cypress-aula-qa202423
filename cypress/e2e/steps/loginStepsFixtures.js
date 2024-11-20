@@ -1,17 +1,23 @@
 /// <reference types="cypress" />
 import { Given, When, Then, And } from "cypress-cucumber-preprocessor/steps"
+import { data } from "cypress/types/jquery"
 
 
 Given("que eu acesse a página de autenticação do saucedemo", () =>{
     cy.visit('https://www.saucedemo.com/')
 })
 
-When("eu digitar o usuário {string}", (user) =>{
-    if (user == '') {
-        //faça nada
-    } else {
-        cy.get('[data-test="username"]').type(user)
-    }
+When("eu digitar o usuário {string}", (fixtures) =>{
+    cy.fixture(fixtures).then((data) =>{
+        data.users.forEach((login) => {
+            if (user == '') {
+                //faça nada
+            } else {
+                cy.get('[data-test="username"]').type(login)
+            }
+        });
+    })
+
 })
 
 And("a senha {string} e confirmar", (pass) =>{
